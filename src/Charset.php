@@ -22,7 +22,7 @@ final class Charset
      * CEDILLA. It turns out to be wrong, it's LATIN CAPITAL LETTER C WITH CEDILLA instead, as mentioned in the other
      * links. Tested on Twilio: ç is sent as UCS2, while Ç is sent as GSM.
      */
-    public const GSM_TO_UTF8 = [
+    const GSM_TO_UTF8 = [
         "\x00" => "\u{0040}", // COMMERCIAL AT
         "\x01" => "\u{00A3}", // POUND SIGN
         "\x02" => "\u{0024}", // DOLLAR SIGN
@@ -172,7 +172,7 @@ final class Charset
      * Maps UTF-8 chars that are not present in the GSM charset to a close match in one or more GSM charset-compatible
      * UTF-8 chars.
      */
-    public const TRANSLITERATE = [
+    const TRANSLITERATE = [
         // Characters in the Unicode range 0000 - 00FF (latin1).
         // This list is hand-crafted and aims to cover the full latin1 range. Mappings marked with (*) are very
         // rough approximations that could be candidate for removal if full latin1 range is not a requirement anymore.

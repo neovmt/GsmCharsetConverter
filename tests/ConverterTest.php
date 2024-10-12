@@ -15,7 +15,7 @@ class ConverterTest extends TestCase
      * @param string $input  The GSM 03.38 input string.
      * @param string $output The expected UTF-8 output string.
      */
-    public function testConvertGsmToUtf8(string $input, string $output) : void
+    public function testConvertGsmToUtf8(string $input, string $output)
     {
         $converter = new Converter();
         self::assertSame($output, $converter->convertGsmToUtf8($input));
@@ -61,7 +61,7 @@ class ConverterTest extends TestCase
      * @param string $string          The string to test.
      * @param string $expectedMessage The expected exception message.
      */
-    public function testConvertGsmToUtf8WithInvalidString(string $string, string $expectedMessage) : void
+    public function testConvertGsmToUtf8WithInvalidString(string $string, string $expectedMessage)
     {
         $converter = new Converter();
 
@@ -94,7 +94,7 @@ class ConverterTest extends TestCase
      * @param string|null $replaceChars    The optional replacement string for unknown chars.
      * @param string      $output          The expected GSM 03.38 output string.
      */
-    public function testConvertUtf8ToGsm(string $input, bool $translit, ?string $replaceChars, string $output) : void
+    public function testConvertUtf8ToGsm(string $input, bool $translit, string $replaceChars, string $output)
     {
         $converter = new Converter();
         $actualOutput = $converter->convertUtf8ToGsm($input, $translit, $replaceChars);
@@ -140,7 +140,9 @@ class ConverterTest extends TestCase
             ["¿ñon s€mper {màùris} dåpibus?",  "\x60\x7D\x6F\x6E\x20\x73\x1B\x65\x6D\x70\x65\x72\x20\x1B\x28\x6D\x7F\x06\x72\x69\x73\x1B\x29\x20\x64\x0F\x70\x69\x62\x75\x73\x3F"]
         ];
 
-        foreach ($tests as [$input, $output]) {
+        foreach ($tests as $test) {
+            $input = $test[0];
+            $output = $test[1];
             yield [$input, false, null, $output];
             yield [$input, false, '?', $output];
             yield [$input, true, null, $output];
@@ -174,7 +176,9 @@ class ConverterTest extends TestCase
             ['à noël', "\x7F\x20\x6E\x6F\x65\x6C"],
         ];
 
-        foreach ($tests as [$input, $output]) {
+        foreach ($tests as $test) {
+            $input = $test[0];
+            $output = $test[1];
             yield [$input, true, null, $output];
             yield [$input, true, '?', $output];
         }
@@ -198,7 +202,7 @@ class ConverterTest extends TestCase
      * @param string|null $replaceChars    The optional replacement string for unknown chars.
      * @param string      $expectedMessage The expected exception message.
      */
-    public function testConvertUtf8ToGsmWithInvalidParams(string $string, bool $translit, ?string $replaceChars, string $expectedMessage) : void
+    public function testConvertUtf8ToGsmWithInvalidParams(string $string, bool $translit, string $replaceChars, string $expectedMessage)
     {
         $converter = new Converter();
 
@@ -218,7 +222,7 @@ class ConverterTest extends TestCase
      * @param string|null $replaceChars    The optional replacement string for unknown chars.
      * @param string      $expectedMessage The expected exception message.
      */
-    public function testCleanUpUtf8StringWithInvalidParams(string $string, bool $translit, ?string $replaceChars, string $expectedMessage) : void
+    public function testCleanUpUtf8StringWithInvalidParams(string $string, bool $translit, string $replaceChars, string $expectedMessage)
     {
         $converter = new Converter();
 
@@ -257,7 +261,7 @@ class ConverterTest extends TestCase
      * @param string|null $replaceChars    The optional replacement string for unknown chars.
      * @param string      $output          The expected UTF-8 output string.
      */
-    public function testCleanUpUtf8String(string $input, bool $translit, ?string $replaceChars, string $output) : void
+    public function testCleanUpUtf8String(string $input, bool $translit, string $replaceChars, string $output)
     {
         $converter = new Converter();
         self::assertSame($output, $converter->cleanUpUtf8String($input, $translit, $replaceChars));
@@ -336,7 +340,9 @@ class ConverterTest extends TestCase
             ['à noël', 'à noel'],
         ];
 
-        foreach ($tests as [$input, $output]) {
+        foreach ($tests as $test) {
+            $input = $test[0];
+            $output = $test[1];
             yield [$input, true, null, $output];
             yield [$input, true, '?', $output];
         }
@@ -358,7 +364,7 @@ class ConverterTest extends TestCase
      * @param string    $input           The UTF-8 input string.
      * @param bool      $output          The expected UTF-8 output string.
      */
-    public function testIsValidGsm(string $input, bool $output) : void
+    public function testIsValidGsm(string $input, bool $output)
     {
         $converter = new Converter();
         self::assertSame($output, $converter->isValidGsm($input));

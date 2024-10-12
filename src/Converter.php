@@ -12,12 +12,12 @@ final class Converter
     /**
      * @var array<string, string>
      */
-    private array $utf8ToGsm;
+    private $utf8ToGsm;
 
     /**
      * @var array<string, string>
      */
-    private array $utf8ToGsmWithTranslit;
+    private $utf8ToGsmWithTranslit;
 
     /**
      * Converter constructor.
@@ -27,7 +27,9 @@ final class Converter
         // Flip the GSM to UTF-8 dictionary to create the UTF-8 to GSM dictionary;
         // Convert all values to strings as the array keys for digits are converted to int by PHP.
         $this->utf8ToGsm = array_map(
-            static fn ($value) => (string) $value,
+            static function ($value) {
+                return (string)$value;
+            },
             array_flip(Charset::GSM_TO_UTF8)
         );
 
@@ -38,7 +40,9 @@ final class Converter
             // Transliterate character by character, as the output string may contain several chars
             $to = $this->splitUtf8String($to);
 
-            $to = array_map(fn (string $char) : string => $this->utf8ToGsm[$char], $to);
+            $to = array_map(function (string $char) : string {
+                return $this->utf8ToGsm[$char];
+            }, $to);
 
             $this->utf8ToGsmWithTranslit[$from] = implode('', $to);
         }
@@ -105,7 +109,7 @@ final class Converter
      *
      * @throws \InvalidArgumentException If an error occurs.
      */
-    public function convertUtf8ToGsm(string $string, bool $translit, ?string $replaceChars = null) : string
+    public function convertUtf8ToGsm(string $string, bool $translit, string $replaceChars = null) : string
     {
         $dictionary = $translit ? $this->utf8ToGsmWithTranslit : $this->utf8ToGsm;
 
@@ -165,7 +169,7 @@ final class Converter
      *
      * @throws \InvalidArgumentException If an error occurs.
      */
-    public function cleanUpUtf8String(string $string, bool $translit, ?string $replaceChars = null) : string
+    public function cleanUpUtf8String(string $string, bool $translit, string $replaceChars = null) : string
     {
         return $this->convertGsmToUtf8(
             $this->convertUtf8ToGsm($string, $translit, $replaceChars)

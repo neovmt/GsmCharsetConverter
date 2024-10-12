@@ -16,7 +16,7 @@ class PackerTest extends TestCase
      * @param string $input     The 7-bit input string.
      * @param string $outputHex The expected output string, hex-encoded.
      */
-    public function testPack(string $input, string $outputHex) : void
+    public function testPack(string $input, string $outputHex)
     {
         $packer = new Packer();
         $actualOutput = $packer->pack($input);
@@ -73,7 +73,7 @@ class PackerTest extends TestCase
         ];
     }
 
-    public function testPack8bitData() : void
+    public function testPack8bitData()
     {
         $packer = new Packer();
 
@@ -89,7 +89,7 @@ class PackerTest extends TestCase
      * @param string $output   The expected 7-bit output string.
      * @param string $inputHex The input string, hex-encoded.
      */
-    public function testUnpack(string $output, string $inputHex) : void
+    public function testUnpack(string $output, string $inputHex)
     {
         $packer = new Packer();
         $actualOutput = $packer->unpack(hex2bin($inputHex));
@@ -108,7 +108,7 @@ class PackerTest extends TestCase
      * @param string $string An unpacked 7-bit string.
      * @param string $packed The packed 8-bit string, with a length multiple of 8 and ending with 0x00 or 0x01.
      */
-    public function testAmbiguousUnpack(string $string, string $packed) : void
+    public function testAmbiguousUnpack(string $string, string $packed)
     {
         $packer = new Packer();
 
