@@ -199,7 +199,8 @@ final class Converter
      *
      * @throws \InvalidArgumentException
      */
-    public function isValidGsm(string $string) : bool
+
+    public function isUtf8StringGsmCompatible(string $string) : bool
     {
         $chars = $this->splitUtf8String($string);
         foreach ($chars as $char) {
