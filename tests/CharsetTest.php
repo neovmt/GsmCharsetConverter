@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CharsetTest extends TestCase
 {
-    public function testUtf8Encoding() : void
+    public function testUtf8Encoding()
     {
         foreach (Charset::GSM_TO_UTF8 as $char) {
             self::assertTrue(mb_check_encoding($char, 'UTF-8'));
@@ -21,7 +21,7 @@ class CharsetTest extends TestCase
         }
     }
 
-    public function testGsmCharsetKeys() : void
+    public function testGsmCharsetKeys()
     {
         foreach (Charset::GSM_TO_UTF8 as $key => $value) {
             $key = (string) $key;
@@ -42,7 +42,7 @@ class CharsetTest extends TestCase
         }
     }
 
-    public function testGsmCharsetCoverage() : void
+    public function testGsmCharsetCoverage()
     {
         $esc = 0x1B;
 
@@ -73,7 +73,7 @@ class CharsetTest extends TestCase
         }
     }
 
-    public function testGsmCharsetValuesAreUnique() : void
+    public function testGsmCharsetValuesAreUnique()
     {
         $values = array_values(Charset::GSM_TO_UTF8);
         self::assertSame($values, array_unique($values));
@@ -93,14 +93,14 @@ class CharsetTest extends TestCase
         }
     }
 
-    public function testTransliterateDoesNotOverlapGsmCharset() : void
+    public function testTransliterateDoesNotOverlapGsmCharset()
     {
         foreach (array_keys(Charset::TRANSLITERATE) as $char) {
             self::assertFalse(in_array($char, Charset::GSM_TO_UTF8, true));
         }
     }
 
-    public function testCoverage() : void
+    public function testCoverage()
     {
         $expectedChars = $this->getExpectedChars();
 
